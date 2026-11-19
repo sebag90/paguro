@@ -209,8 +209,10 @@ By default, the project container includes:
 | Host path          | Container path                                      | Notes                                                            |
 | ------------------ | --------------------------------------------------- | ---------------------------------------------------------------- |
 | Current directory  | Same absolute path                                  | Read-write, SELinux relabeled with `Z`. Disabled by `--sandbox`. |
+| `~/.config/containers/auth.json`  | `/home/dev/.config/containers/auth.json`  | Registry credentials. Only when present.        |
 | `~/.config/pig/agent/auth.json`   | `/home/dev/.config/pig/agent/auth.json`   | Only when present.                              |
 | `~/.config/pig/agent/settings.json` | `/home/dev/.config/pig/agent/settings.json` | Only when present.                            |
+| `~/.config/pig/agent/AGENTS.md`   | `/home/dev/.config/pig/agent/AGENTS.md`   | Global instructions for every pig session. Only when present. |
 | `~/.config/pig/agent/sessions`    | `/home/dev/.config/pig/agent/sessions`    | Only when present.                              |
 | `~/.aws`           | `/home/dev/.aws`                                    | Only when present.                                               |
 | `~/.gitconfig`     | `/home/dev/.gitconfig`                              | Only when present.                                               |

@@ -23,8 +23,10 @@ const (
 // hostHomePaths are paths relative to the host's $HOME that are made available
 // in the container when they exist.
 var hostHomePaths = []string{
+	".config/containers/auth.json",
 	".config/pig/agent/auth.json",
 	".config/pig/agent/settings.json",
+	".config/pig/agent/AGENTS.md",
 	".config/pig/agent/sessions",
 	".aws",
 	".gitconfig",
