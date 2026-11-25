@@ -24,10 +24,10 @@ const (
 // in the container when they exist.
 var hostHomePaths = []string{
 	".config/containers/auth.json",
-	".config/pig/agent/auth.json",
-	".config/pig/agent/settings.json",
-	".config/pig/agent/AGENTS.md",
-	".config/pig/agent/sessions",
+	".config/pi/agent/auth.json",
+	".config/pi/agent/settings.json",
+	".config/pi/agent/AGENTS.md",
+	".config/pi/agent/sessions",
 	".aws",
 	".gitconfig",
 	".ssh",

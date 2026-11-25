@@ -16,13 +16,22 @@ func TestHostMountsIncludesExistingPathsAndWayland(t *testing.T) {
 	t.Setenv("XDG_RUNTIME_DIR", runtimeDir)
 	t.Setenv("WAYLAND_DISPLAY", "wayland-0")
 
-	paths := []string{".config/containers/auth.json", ".config/pig/agent/settings.json", ".config/pig/agent/AGENTS.md", ".config/pig/agent/auth.json", ".config/pig/agent/sessions", ".ssh", ".gitconfig", ".netrc"}
+	paths := []string{
+		".config/containers/auth.json",
+		".config/pi/agent/settings.json",
+		".config/pi/agent/AGENTS.md",
+		".config/pi/agent/auth.json",
+		".config/pi/agent/sessions",
+		".ssh",
+		".gitconfig",
+		".netrc",
+	}
 	for _, rel := range paths {
 		path := filepath.Join(home, rel)
 		if err := os.MkdirAll(filepath.Dir(path), 0o755); err != nil {
 			t.Fatal(err)
 		}
-		if rel == ".config/pig/agent/sessions" {
+		if rel == ".config/pi/agent/sessions" {
 			if err := os.MkdirAll(path, 0o700); err != nil {
 				t.Fatal(err)
 			}

@@ -114,33 +114,33 @@ paguro --image ubuntu:24.04 shell
 
 ## Commands
 
-| Command                            | Description                                                                                                                          |
-| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| `paguro up`                        | Create and start the container for the current directory. Idempotent: an existing container is reused or restarted if stopped.       |
-| `paguro shell`                     | Open an interactive TTY shell. Aliased as `paguro ssh`. The host's `$SHELL` is tried first, with `/bin/sh` as fallback.              |
-| `paguro run <command> [args...]`   | Run a command non-interactively and return its exit code. Flags after the command belong to the command.                             |
-| `paguro run -d <command> ...`      | Start a command in the background and return immediately. Output goes to a log file inside the container.                            |
-| `paguro ps`                        | List the detached jobs of the current directory's container, with the directory each job runs in. Aliased as `paguro jobs`.          |
-| `paguro ps --all`                  | List the detached jobs of every running container. Jobs of stopped containers cannot be read.                                        |
-| `paguro logs <job>`                | Print a detached job's output, wherever its container lives. With `-f`, follow it until the job ends.                                |
-| `paguro down`                      | Stop and remove the current directory's container. Other directories' containers are untouched.                                      |
-| `paguro down --all`                | Stop and remove every container `paguro` created, across all directories.                                                            |
-| `paguro list`                      | List every container with its directory, status, and whether it is sandboxed. Aliased as `paguro ls`.                                |
-| `paguro help`                      | Show all commands and flags.                                                                                                         |
-| `paguro --version`                 | Print the `paguro` version.                                                                                                          |
+| Command                          | Description                                                                                                                    |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `paguro up`                      | Create and start the container for the current directory. Idempotent: an existing container is reused or restarted if stopped. |
+| `paguro shell`                   | Open an interactive TTY shell. Aliased as `paguro ssh`. The host's `$SHELL` is tried first, with `/bin/sh` as fallback.        |
+| `paguro run <command> [args...]` | Run a command non-interactively and return its exit code. Flags after the command belong to the command.                       |
+| `paguro run -d <command> ...`    | Start a command in the background and return immediately. Output goes to a log file inside the container.                      |
+| `paguro ps`                      | List the detached jobs of the current directory's container, with the directory each job runs in. Aliased as `paguro jobs`.    |
+| `paguro ps --all`                | List the detached jobs of every running container. Jobs of stopped containers cannot be read.                                  |
+| `paguro logs <job>`              | Print a detached job's output, wherever its container lives. With `-f`, follow it until the job ends.                          |
+| `paguro down`                    | Stop and remove the current directory's container. Other directories' containers are untouched.                                |
+| `paguro down --all`              | Stop and remove every container `paguro` created, across all directories.                                                      |
+| `paguro list`                    | List every container with its directory, status, and whether it is sandboxed. Aliased as `paguro ls`.                          |
+| `paguro help`                    | Show all commands and flags.                                                                                                   |
+| `paguro --version`               | Print the `paguro` version.                                                                                                    |
 
 ### Flags
 
-| Flag                   | Scope   | Description                                                                              |
-| ---------------------- | ------- | ---------------------------------------------------------------------------------------- |
+| Flag                   | Scope   | Description                                                                                |
+| ---------------------- | ------- | ------------------------------------------------------------------------------------------ |
 | `--image <ref>`        | global  | Image to use when creating a new container. Defaults to `ghcr.io/sebag90/devshell:latest`. |
-| `-s`, `--sandbox`      | global  | Do not bind-mount the current directory into the container.                              |
-| `-S`, `--shell <name>` | `shell` | Shell to start inside the container. Defaults to the basename of `$SHELL`, or `bash`.    |
-| `--all`                | `down`  | Stop and remove the containers of every directory, not just the current one.             |
-| `--all`                | `ps`    | List the jobs of every running container, not just the current directory's.              |
-| `-d`, `--detach`       | `run`   | Start the command in the background instead of streaming its output.                     |
-| `--log <path>`         | `run`   | Path inside the container for a detached command's output. Requires `--detach`.          |
-| `-f`, `--follow`       | `logs`  | Keep printing new output until the job ends.                                             |
+| `-s`, `--sandbox`      | global  | Do not bind-mount the current directory into the container.                                |
+| `-S`, `--shell <name>` | `shell` | Shell to start inside the container. Defaults to the basename of `$SHELL`, or `bash`.      |
+| `--all`                | `down`  | Stop and remove the containers of every directory, not just the current one.               |
+| `--all`                | `ps`    | List the jobs of every running container, not just the current directory's.                |
+| `-d`, `--detach`       | `run`   | Start the command in the background instead of streaming its output.                       |
+| `--log <path>`         | `run`   | Path inside the container for a detached command's output. Requires `--detach`.            |
+| `-f`, `--follow`       | `logs`  | Keep printing new output until the job ends.                                               |
 
 ### Detached jobs
 
@@ -206,20 +206,20 @@ moving, or remove the stale container manually.
 
 By default, the project container includes:
 
-| Host path          | Container path                                      | Notes                                                            |
-| ------------------ | --------------------------------------------------- | ---------------------------------------------------------------- |
-| Current directory  | Same absolute path                                  | Read-write, SELinux relabeled with `Z`. Disabled by `--sandbox`. |
-| `~/.config/containers/auth.json`  | `/home/dev/.config/containers/auth.json`  | Registry credentials. Only when present.        |
-| `~/.config/pig/agent/auth.json`   | `/home/dev/.config/pig/agent/auth.json`   | Only when present.                              |
-| `~/.config/pig/agent/settings.json` | `/home/dev/.config/pig/agent/settings.json` | Only when present.                            |
-| `~/.config/pig/agent/AGENTS.md`   | `/home/dev/.config/pig/agent/AGENTS.md`   | Global instructions for every pig session. Only when present. |
-| `~/.config/pig/agent/sessions`    | `/home/dev/.config/pig/agent/sessions`    | Only when present.                              |
-| `~/.aws`           | `/home/dev/.aws`                                    | Only when present.                                               |
-| `~/.gitconfig`     | `/home/dev/.gitconfig`                              | Only when present.                                               |
-| `~/.ssh`           | `/home/dev/.ssh`                                    | Only when present.                                               |
-| `~/.netrc`         | `/home/dev/.netrc`                                  | Only when present.                                               |
-| `$WAYLAND_DISPLAY` | `/tmp/wayland-0`                                    | Only when a Wayland socket exists.                               |
-| Engine socket      | `/run/podman/podman.sock` or `/var/run/docker.sock` | Mounted when available.                                          |
+| Host path                          | Container path                                      | Notes                                                            |
+| ---------------------------------- | --------------------------------------------------- | ---------------------------------------------------------------- |
+| Current directory                  | Same absolute path                                  | Read-write, SELinux relabeled with `Z`. Disabled by `--sandbox`. |
+| `~/.config/containers/auth.json`   | `/home/dev/.config/containers/auth.json`            | Registry credentials. Only when present.                         |
+| `~/.config/pi/agent/auth.json`     | `/home/dev/.config/pi/agent/auth.json`              | Only when present.                                               |
+| `~/.config/pi/agent/settings.json` | `/home/dev/.config/pi/agent/settings.json`          | Only when present.                                               |
+| `~/.config/pi/agent/AGENTS.md`     | `/home/dev/.config/pi/agent/AGENTS.md`              | Global instructions for every pig session. Only when present.    |
+| `~/.config/pi/agent/sessions`      | `/home/dev/.config/pi/agent/sessions`               | Only when present.                                               |
+| `~/.aws`                           | `/home/dev/.aws`                                    | Only when present.                                               |
+| `~/.gitconfig`                     | `/home/dev/.gitconfig`                              | Only when present.                                               |
+| `~/.ssh`                           | `/home/dev/.ssh`                                    | Only when present.                                               |
+| `~/.netrc`                         | `/home/dev/.netrc`                                  | Only when present.                                               |
+| `$WAYLAND_DISPLAY`                 | `/tmp/wayland-0`                                    | Only when a Wayland socket exists.                               |
+| Engine socket                      | `/run/podman/podman.sock` or `/var/run/docker.sock` | Mounted when available.                                          |
 
 The engine socket is exposed so that `podman` or `docker` can be used _inside_
 the project container. Containers started there run on the host daemon, next to
